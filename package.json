@@ -3,7 +3,7 @@
     "name": "arcane-compendium",
     "description": "",
     "version": "1.0.0",
-    "main": "app/main.js",
+    "main": "app/background.js",
     "scripts": {
         "dev": "nextron",
         "build": "nextron build",
@@ -11,13 +11,20 @@
         "postinstall": "electron-builder install-app-deps"
     },
     "dependencies": {
+        "@lingui/react": "^3.17.1",
         "electron-serve": "^1.1.0",
-        "electron-store": "^8.1.0"
+        "electron-store": "^8.1.0",
+        "make-plural": "^7.2.0"
     },
     "devDependencies": {
+        "@babel/core": "^7.20.12",
+        "@lingui/cli": "^3.17.1",
+        "@lingui/loader": "^3.17.1",
+        "@lingui/macro": "^3.17.1",
         "@types/node": "^18.11.18",
         "@types/react": "^18.0.26",
         "autoprefixer": "^10.4.7",
+        "babel-plugin-macros": "^3.1.0",
         "electron": "^21.3.3",
         "electron-builder": "^23.6.0",
         "next": "^12.3.4",
