@@ -3,25 +3,25 @@
 @tailwind utilities;
 
 @layer base {
-    body {
-        @apply bg-gray-900 text-white;
-    }
+  body {
+    @apply bg-gray-900 text-white;
+  }
 }
 
 @layer components {
-    .btn-blue {
-        @apply text-white font-bold px-4 py-2 rounded bg-blue-600 hover:bg-blue-500;
-    }
+  .btn-blue {
+    @apply text-white font-bold px-4 py-2 rounded bg-blue-600 hover:bg-blue-500;
+  }
 }
 
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 /* Firefox */
 input[type='number'] {
-    -moz-appearance: textfield;
+  -moz-appearance: textfield;
 }

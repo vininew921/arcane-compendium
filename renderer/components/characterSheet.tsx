@@ -1,156 +1,146 @@
-import Head from 'next/head';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Character from '../models/character';
+import { Grid, Paper, TextField } from '@mui/material';
 import CreatureStats from './creatureStats';
 
 type CharacterType = {
-    name: string;
-    characterClass: string; //TO DO: change to CharacterClass type
-    level: number;
-    race: string;
-    background: string;
-    alignment: string;
-    playerName: string;
-    experiencePoints: number;
+  name: string;
+  characterClass: string; //TO DO: change to CharacterClass type
+  level: number;
+  race: string;
+  background: string;
+  alignment: string;
+  playerName: string;
+  experiencePoints: number;
 };
 
 const CharacterSheet = ({
-    name,
-    characterClass,
-    level,
-    race,
-    background,
-    alignment,
-    playerName,
-    experiencePoints,
+  name,
+  characterClass,
+  level,
+  race,
+  background,
+  alignment,
+  playerName,
+  experiencePoints,
 }: CharacterType) => {
-    const [currentCharacter, setCharacter] = useState(
-        new Character(
-            name,
-            characterClass,
-            level,
-            race,
-            background,
-            alignment,
-            playerName,
-            experiencePoints
-        )
-    );
+  const [currentCharacter, setCharacter] = useState(
+    new Character(
+      name,
+      characterClass,
+      level,
+      race,
+      background,
+      alignment,
+      playerName,
+      experiencePoints
+    )
+  );
 
-    return (
-        <>
-            <Head>
-                <title>Character Sheet</title>
-            </Head>
-            <div className='m-2 grid grid-cols-2 text-md gap-2 w-3/4'>
-                <div className='grid grid-cols-2 items-center'>
-                    <label>Nome do Personagem</label>
-                    <input
-                        className='p-2 bg-gray-900 border-2 border-white text-white'
-                        value={currentCharacter.name}
-                        onChange={(e) =>
-                            setCharacter({
-                                ...currentCharacter,
-                                name: e.target.value,
-                            })
-                        }
-                    />
-                </div>
-                <div className='grid grid-cols-2 items-center'>
-                    <label>Classe</label>
-                    <input
-                        className='p-2 bg-gray-900 border-2 border-white text-white'
-                        value={currentCharacter.characterClass}
-                        onChange={(e) =>
-                            setCharacter({
-                                ...currentCharacter,
-                                characterClass: e.target.value,
-                            })
-                        }
-                    />
-                </div>
-                <div className='grid grid-cols-2 items-center'>
-                    <label>Level</label>
-                    <input
-                        className='p-2 bg-gray-900 border-2 border-white text-white'
-                        value={currentCharacter.level}
-                        onChange={(e) =>
-                            setCharacter({
-                                ...currentCharacter,
-                                level: parseInt(e.target.value),
-                            })
-                        }
-                    />
-                </div>
-                <div className='grid grid-cols-2 items-center'>
-                    <label>Raça</label>
-                    <input
-                        className='p-2 bg-gray-900 border-2 border-white text-white'
-                        value={currentCharacter.race}
-                        onChange={(e) =>
-                            setCharacter({
-                                ...currentCharacter,
-                                race: e.target.value,
-                            })
-                        }
-                    />
-                </div>
-                <div className='grid grid-cols-2 items-center'>
-                    <label>Antecedente</label>
-                    <input
-                        className='p-2 bg-gray-900 border-2 border-white text-white'
-                        value={currentCharacter.background}
-                        onChange={(e) =>
-                            setCharacter({
-                                ...currentCharacter,
-                                background: e.target.value,
-                            })
-                        }
-                    />
-                </div>
-                <div className='grid grid-cols-2 items-center'>
-                    <label>Alinhamento</label>
-                    <input
-                        className='p-2 bg-gray-900 border-2 border-white text-white'
-                        value={currentCharacter.alignment}
-                        onChange={(e) =>
-                            setCharacter({
-                                ...currentCharacter,
-                                alignment: e.target.value,
-                            })
-                        }
-                    />
-                </div>
-                <div className='grid grid-cols-2 items-center'>
-                    <label>Nome do Jogador</label>
-                    <input
-                        className='p-2 bg-gray-900 border-2 border-white text-white'
-                        value={currentCharacter.playerName}
-                        onChange={(e) =>
-                            setCharacter({
-                                ...currentCharacter,
-                                playerName: e.target.value,
-                            })
-                        }
-                    />
-                </div>
-                <div className='grid grid-cols-2 items-center'>
-                    <label>Pontos de Experiência</label>
-                    <input
-                        className='p-2 bg-gray-900 border-2 border-white text-white'
-                        value={currentCharacter.experiencePoints}
-                        onChange={(e) =>
-                            setCharacter({
-                                ...currentCharacter,
-                                experiencePoints: parseInt(e.target.value),
-                            })
-                        }
-                    />
-                </div>
-            </div>
-            <CreatureStats {...currentCharacter.stats} />
-        </>
-    );
+  let gridItemSize = 6;
+
+  return (
+    <>
+      <Paper elevation={3}>
+        <Grid container spacing={2} padding={2}>
+          <Grid item xs={12}>
+            <TextField
+              value={currentCharacter.name}
+              onChange={(e) => {
+                setCharacter({
+                  ...currentCharacter,
+                  name: e.target.value,
+                });
+              }}
+              label='Nome do Personagem'
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={gridItemSize}>
+            <TextField
+              value={currentCharacter.characterClass}
+              onChange={(e) => {
+                setCharacter({
+                  ...currentCharacter,
+                  characterClass: e.target.value,
+                });
+              }}
+              label='Classe'
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={gridItemSize}>
+            <TextField
+              value={currentCharacter.level}
+              onChange={(e) => {
+                setCharacter({
+                  ...currentCharacter,
+                  level: parseInt(e.target.value),
+                });
+              }}
+              label='Level'
+              type='number'
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={gridItemSize}>
+            <TextField
+              value={currentCharacter.race}
+              onChange={(e) => {
+                setCharacter({
+                  ...currentCharacter,
+                  race: e.target.value,
+                });
+              }}
+              label='Raça'
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={gridItemSize}>
+            <TextField
+              value={currentCharacter.background}
+              onChange={(e) => {
+                setCharacter({
+                  ...currentCharacter,
+                  background: e.target.value,
+                });
+              }}
+              label='Antecedente'
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={gridItemSize}>
+            <TextField
+              value={currentCharacter.alignment}
+              onChange={(e) => {
+                setCharacter({
+                  ...currentCharacter,
+                  alignment: e.target.value,
+                });
+              }}
+              label='Alinhamento'
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={gridItemSize}>
+            <TextField
+              value={currentCharacter.experiencePoints}
+              onChange={(e) => {
+                setCharacter({
+                  ...currentCharacter,
+                  experiencePoints: parseInt(e.target.value),
+                });
+              }}
+              label='Pontos de Experiência'
+              type='number'
+              fullWidth
+            />
+          </Grid>
+        </Grid>
+      </Paper>
+      <CreatureStats {...currentCharacter.stats}></CreatureStats>
+    </>
+  );
 };
 
 export default CharacterSheet;

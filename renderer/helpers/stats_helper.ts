@@ -1,7 +1,9 @@
-export const stringifiedNumber = (n: number): string => {
-    if (n > 0) {
-        return `+${n}`;
-    }
+export const modifierString = (n: number): string => {
+  n = Math.floor((n - 10) / 2);
 
-    return `${n}`;
+  if (n > 0) {
+    return `+${n}`;
+  }
+
+  return `${n}`;
 };
