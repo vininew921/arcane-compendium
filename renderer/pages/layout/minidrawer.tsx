@@ -18,7 +18,7 @@ import TranslateRoundedIcon from '@mui/icons-material/TranslateRounded';
 import Typography from '@mui/material/Typography';
 import Tooltip from '@mui/material/Tooltip';
 
-const drawerWidth = 264;
+const drawerWidth = 200;
 
 const openedMixin = (theme: Theme): CSSObject => ({
   width: drawerWidth,
@@ -86,7 +86,7 @@ const DrawerItem = (itemProps: ItemProps) => {
       >
         <ListItemButton
           sx={{
-            minHeight: 48,
+            minHeight: 40,
             justifyContent: itemProps.open ? 'initial' : 'center',
             px: 2.5,
           }}
@@ -94,7 +94,7 @@ const DrawerItem = (itemProps: ItemProps) => {
           <ListItemIcon
             sx={{
               minWidth: 0,
-              mr: itemProps.open ? 3 : 'auto',
+              mr: itemProps.open ? 2 : 'auto',
               justifyContent: 'center',
             }}
           >
@@ -124,12 +124,13 @@ const MiniDrawer = ({ children }: Props) => {
         <DrawerHeader style={{ padding: 12 }}>
           <Typography
             display={open ? 'block' : 'none'}
+            variant='h5'
             textAlign='left'
-            paddingLeft={1.5}
+            paddingLeft={1.6}
             className='w-full'
             fontWeight='bolder'
           >
-            Menu
+            A. C.
           </Typography>
           <IconButton onClick={() => handleDrawerOpen(!open)}>
             {open ? <ChevronLeftIcon /> : <MenuIcon />}
@@ -163,7 +164,7 @@ const MiniDrawer = ({ children }: Props) => {
           />
         </List>
       </Drawer>
-      <Box component='main' sx={{ flexGrow: 1 }}>
+      <Box component='main' sx={{ flexGrow: 1, minWidth: 944 }}>
         {children}
       </Box>
     </Box>
