@@ -8,10 +8,9 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material';
-import { maxWidth } from '@mui/system';
-import { ChangeEvent, useState } from 'react';
+import { useState } from 'react';
 import { modifierString } from '../helpers/stats_helper';
-import CharacterStats, { Stat } from '../models/character_stats';
+import CharacterStats from '../models/character_stats';
 
 type SingleStat = {
   value: number;

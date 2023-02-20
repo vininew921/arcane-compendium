@@ -7,6 +7,7 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 import '../styles/globals.css';
+import MiniDrawer from '../components/drawer';
 
 const darkTheme = createTheme({
   palette: {
@@ -22,7 +23,9 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
-      <Component {...pageProps} />
+      <MiniDrawer>
+        <Component {...pageProps} />
+      </MiniDrawer>
     </ThemeProvider>
   );
 }
