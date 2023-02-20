@@ -41,7 +41,7 @@ const CharacterSheet = ({
 
   return (
     <>
-      <Paper elevation={3}>
+      <Paper elevation={3} className='m-2 pt-2'>
         <Grid container spacing={2} padding={2}>
           <Grid item xs={12}>
             <TextField

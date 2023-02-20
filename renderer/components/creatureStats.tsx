@@ -1,4 +1,14 @@
-import { Card, CardContent, Grid, Paper, TextField, Typography } from '@mui/material';
+import {
+  Card,
+  CardContent,
+  Divider,
+  Grid,
+  Paper,
+  TextField,
+  Tooltip,
+  Typography,
+} from '@mui/material';
+import { maxWidth } from '@mui/system';
 import { ChangeEvent, useState } from 'react';
 import { modifierString } from '../helpers/stats_helper';
 import CharacterStats, { Stat } from '../models/character_stats';
@@ -21,12 +31,17 @@ const CreatureStats = (characterStats: CharacterStats) => {
       <Paper elevation={3} sx={{ maxWidth: 300, margin: 1 }}>
         <Card>
           <CardContent>
-            <Typography variant='h4'>ATRIBUTOS</Typography>
+            <Typography variant='h5' marginBottom={1}>
+              ATRIBUTOS
+            </Typography>
+            <Divider />
             <Grid container rowSpacing={2} paddingTop={2} textAlign='end' alignItems='center'>
               <Grid item xs={8}>
-                <Typography variant='h6' textAlign='start'>
-                  Força
-                </Typography>
+                <Tooltip title='Atletismo natural, poder corporal' followCursor>
+                  <Typography variant='h6' textAlign='start'>
+                    Força
+                  </Typography>
+                </Tooltip>
               </Grid>
               <Grid item xs={2}>
                 <TextField
@@ -47,9 +62,11 @@ const CreatureStats = (characterStats: CharacterStats) => {
                 <Typography variant='h6'>{modifierString(strength)}</Typography>
               </Grid>
               <Grid item xs={8}>
-                <Typography variant='h6' textAlign='start'>
-                  Destreza
-                </Typography>
+                <Tooltip title='Agilidade física, reflexos, equilíbrio' followCursor>
+                  <Typography variant='h6' textAlign='start'>
+                    Destreza
+                  </Typography>
+                </Tooltip>
               </Grid>
               <Grid item xs={2}>
                 <TextField
@@ -70,9 +87,11 @@ const CreatureStats = (characterStats: CharacterStats) => {
                 <Typography variant='h6'>{modifierString(dexterity)}</Typography>
               </Grid>
               <Grid item xs={8}>
-                <Typography variant='h6' textAlign='start'>
-                  Constituição
-                </Typography>
+                <Tooltip title='Saúde, vigor, força vital' followCursor>
+                  <Typography variant='h6' textAlign='start'>
+                    Constituição
+                  </Typography>
+                </Tooltip>
               </Grid>
               <Grid item xs={2}>
                 <TextField
@@ -93,9 +112,14 @@ const CreatureStats = (characterStats: CharacterStats) => {
                 <Typography variant='h6'>{modifierString(constitution)}</Typography>
               </Grid>
               <Grid item xs={8}>
-                <Typography variant='h6' textAlign='start'>
-                  Inteligência
-                </Typography>
+                <Tooltip
+                  title='Acuidade mental, recordar informações, perícia analítica'
+                  followCursor
+                >
+                  <Typography variant='h6' textAlign='start'>
+                    Inteligência
+                  </Typography>
+                </Tooltip>
               </Grid>
               <Grid item xs={2}>
                 <TextField
@@ -116,9 +140,11 @@ const CreatureStats = (characterStats: CharacterStats) => {
                 <Typography variant='h6'>{modifierString(intelligence)}</Typography>
               </Grid>
               <Grid item xs={8}>
-                <Typography variant='h6' textAlign='start'>
-                  Sabedoria
-                </Typography>
+                <Tooltip title='Consciência, intuição, perspicácia' followCursor>
+                  <Typography variant='h6' textAlign='start'>
+                    Sabedoria
+                  </Typography>
+                </Tooltip>
               </Grid>
               <Grid item xs={2}>
                 <TextField
@@ -139,9 +165,11 @@ const CreatureStats = (characterStats: CharacterStats) => {
                 <Typography variant='h6'>{modifierString(wisdom)}</Typography>
               </Grid>
               <Grid item xs={8}>
-                <Typography variant='h6' textAlign='start'>
-                  Carisma
-                </Typography>
+                <Tooltip title='Confiança, eloquência, liderança' followCursor>
+                  <Typography variant='h6' textAlign='start'>
+                    Carisma
+                  </Typography>
+                </Tooltip>
               </Grid>
               <Grid item xs={2}>
                 <TextField
