@@ -9,28 +9,23 @@ import {
   Typography,
 } from '@mui/material';
 import { useState } from 'react';
-import { modifierString } from '../helpers/stats_helper';
-import CharacterStats from '../models/character_stats';
+import { modifierString } from '../helpers/ACHelper';
+import IStats from '../models/IStats';
 
-type SingleStat = {
-  value: number;
-  modifier: number;
-};
-
-const CreatureStats = (characterStats: CharacterStats) => {
-  const [strength, setStrength] = useState(characterStats.strenght.value);
-  const [dexterity, setDexterity] = useState(characterStats.dexterity.value);
-  const [constitution, setConstitution] = useState(characterStats.constitution.value);
-  const [intelligence, setIntelligence] = useState(characterStats.intelligence.value);
-  const [wisdom, setWisdom] = useState(characterStats.wisdom.value);
-  const [charisma, setCharisma] = useState(characterStats.charisma.value);
+const Stats = (props: IStats) => {
+  const [strength, setStrength] = useState(props.strength);
+  const [dexterity, setDexterity] = useState(props.dexterity);
+  const [constitution, setConstitution] = useState(props.constitution);
+  const [intelligence, setIntelligence] = useState(props.intelligence);
+  const [wisdom, setWisdom] = useState(props.wisdom);
+  const [charisma, setCharisma] = useState(props.charisma);
 
   return (
     <>
       <Paper elevation={3} sx={{ maxWidth: 300, margin: 1 }}>
         <Card>
           <CardContent>
-            <Typography variant='h5' marginBottom={1}>
+            <Typography variant='h5' marginBottom={1} fontWeight='bolder'>
               ATRIBUTOS
             </Typography>
             <Divider />
@@ -196,4 +191,4 @@ const CreatureStats = (characterStats: CharacterStats) => {
   );
 };
 
-export default CreatureStats;
+export default Stats;

@@ -7,7 +7,7 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 import '../styles/globals.css';
-import MiniDrawer from '../components/drawer';
+import MiniDrawer from './layout/minidrawer';
 
 const darkTheme = createTheme({
   palette: {

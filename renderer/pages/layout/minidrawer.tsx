@@ -18,7 +18,7 @@ import TranslateRoundedIcon from '@mui/icons-material/TranslateRounded';
 import Typography from '@mui/material/Typography';
 import Tooltip from '@mui/material/Tooltip';
 
-const drawerWidth = 200;
+const drawerWidth = 264;
 
 const openedMixin = (theme: Theme): CSSObject => ({
   width: drawerWidth,
@@ -77,32 +77,32 @@ type ItemProps = {
 const DrawerItem = (itemProps: ItemProps) => {
   return (
     <ListItem key='personagens' disablePadding sx={{ display: 'block' }}>
-      <ListItemButton
-        sx={{
-          minHeight: 48,
-          justifyContent: itemProps.open ? 'initial' : 'center',
-          px: 2.5,
-        }}
+      <Tooltip
+        title={itemProps.title}
+        arrow
+        placement='right'
+        disableInteractive
+        disableHoverListener={itemProps.open}
       >
-        <ListItemIcon
+        <ListItemButton
           sx={{
-            minWidth: 0,
-            mr: itemProps.open ? 3 : 'auto',
-            justifyContent: 'center',
+            minHeight: 48,
+            justifyContent: itemProps.open ? 'initial' : 'center',
+            px: 2.5,
           }}
         >
-          <Tooltip
-            title={itemProps.title}
-            arrow
-            placement='right'
-            disableInteractive
-            disableHoverListener={itemProps.open}
+          <ListItemIcon
+            sx={{
+              minWidth: 0,
+              mr: itemProps.open ? 3 : 'auto',
+              justifyContent: 'center',
+            }}
           >
             {itemProps.icon}
-          </Tooltip>
-        </ListItemIcon>
-        <ListItemText primary={itemProps.title} sx={{ opacity: itemProps.open ? 1 : 0 }} />
-      </ListItemButton>
+          </ListItemIcon>
+          <ListItemText primary={itemProps.title} sx={{ opacity: itemProps.open ? 1 : 0 }} />
+        </ListItemButton>
+      </Tooltip>
     </ListItem>
   );
 };
@@ -127,6 +127,7 @@ const MiniDrawer = ({ children }: Props) => {
             textAlign='left'
             paddingLeft={1.5}
             className='w-full'
+            fontWeight='bolder'
           >
             Menu
           </Typography>
