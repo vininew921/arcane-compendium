@@ -1,9 +1,10 @@
 import { Grid, Paper, TextField } from '@mui/material';
 import Stats from './stats';
 import Skills from './skills';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { TSkill, TStats } from '../models/types';
 import Attribute from '../models/enums/attribute';
+import { bonusProficiencyByLevel } from '../helpers/ACHelper';
 
 const gridItemSize = 5;
 
@@ -15,7 +16,7 @@ const Character = () => {
   const [background, setBackground] = useState('Nome');
   const [alignment, setAlignment] = useState('Nome');
   const [experiencePoints, setExperiencePoints] = useState(0);
-  const [bonusProficiency, setBonusProficiency] = useState(2);
+  const [bonusProficiency, setBonusProficiency] = useState(bonusProficiencyByLevel(level));
 
   const [stats, setStats] = useState<TStats[]>([
     { name: 'Força', attribute: Attribute.STRENGTH, value: 13 },
@@ -64,6 +65,10 @@ const Character = () => {
 
     setSkills(temp);
   };
+
+  useEffect(() => {
+    setBonusProficiency(bonusProficiencyByLevel(level));
+  }, [level]);
 
   return (
     <>

@@ -25,9 +25,26 @@ const Skills = ({ skills, stats, bonusProficiency, updateSkill }: MultiSkills) =
       <Paper elevation={3}>
         <Card>
           <CardContent style={{ paddingBottom: 4 }}>
-            <Typography variant='inherit' marginBottom={1} fontWeight='bolder'>
-              PERÍCIAS
-            </Typography>
+            <Grid container justifyContent='space-between'>
+              <Grid item>
+                <Typography variant='inherit' marginBottom={1} fontWeight='bolder'>
+                  PERÍCIAS
+                </Typography>
+              </Grid>
+              <Grid item minWidth={32}>
+                <Tooltip title='Bonus de Proficiência' arrow>
+                  <Paper variant='outlined' sx={{ backgroundColor: '#ce93d8' }}>
+                    <Typography
+                      variant='inherit'
+                      paddingLeft={1}
+                      paddingRight={1}
+                      fontWeight='bolder'
+                      color='black'
+                    >{`+${bonusProficiency}`}</Typography>
+                  </Paper>
+                </Tooltip>
+              </Grid>
+            </Grid>
             <Divider />
             <Grid container padding={0} rowSpacing={0} alignItems='center'>
               {skills.map((skill, index) => (
