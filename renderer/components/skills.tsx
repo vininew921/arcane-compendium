@@ -20,6 +20,15 @@ type MultiSkills = {
 };
 
 const Skills = ({ skills, stats, bonusProficiency, updateSkill }: MultiSkills) => {
+  const getPassivePerception = (skill: TSkill) => {
+    return proficientModifierString(
+      stats.find((x) => x.attribute == skill.attribute)?.value,
+      bonusProficiency,
+      skill.proficient,
+      10
+    );
+  };
+
   return (
     <>
       <Paper elevation={3}>
@@ -93,6 +102,26 @@ const Skills = ({ skills, stats, bonusProficiency, updateSkill }: MultiSkills) =
                   </Grid>
                 </Fragment>
               ))}
+            </Grid>
+            <Divider />
+            <Grid container justifyContent='space-between' paddingTop={1}>
+              <Grid item>
+                <Typography variant='inherit' marginBottom={1} fontWeight='bolder'>
+                  Percepção Passiva
+                </Typography>
+              </Grid>
+              <Grid item>
+                <Paper variant='outlined' sx={{ backgroundColor: 'green' }}>
+                  <Typography
+                    variant='inherit'
+                    paddingLeft={1}
+                    paddingRight={1}
+                    fontWeight='bolder'
+                  >{`${getPassivePerception(
+                    skills.find((x) => x.name.startsWith('Percep'))!
+                  )}`}</Typography>
+                </Paper>
+              </Grid>
             </Grid>
           </CardContent>
         </Card>

@@ -1,7 +1,11 @@
 import Attribute from '../models/enums/attribute';
 
+export const modifier = (n: number) => {
+  return Math.floor((n - 10) / 2);
+};
+
 export const modifierString = (n: number): string => {
-  n = Math.floor((n - 10) / 2);
+  n = modifier(n);
 
   return n > 0 ? `+${n}` : `${n}`;
 };
@@ -13,12 +17,13 @@ export const standardArray = (): number[] => {
 export const proficientModifierString = (
   n: number | undefined,
   proficiency: number,
-  proficient: boolean | undefined
+  proficient: boolean | undefined,
+  bonusValue: number = 0
 ): string => {
   if (n === undefined || proficient === undefined) {
     return '';
   }
-  n = Math.floor((n - 10) / 2);
+  n = modifier(n) + bonusValue;
   n = proficient ? n + proficiency : n;
 
   return n > 0 ? `+${n}` : `${n}`;

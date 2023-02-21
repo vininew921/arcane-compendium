@@ -4,7 +4,7 @@ import Skills from './skills';
 import { useEffect, useState } from 'react';
 import { TSavingThrow, TSkill, TStat } from '../models/types';
 import Attribute from '../models/enums/attribute';
-import { bonusProficiencyByLevel } from '../helpers/ACHelper';
+import { bonusProficiencyByLevel, modifier } from '../helpers/ACHelper';
 import SavingThrows from './savingThrows';
 
 const gridItemSize = 4;
@@ -18,6 +18,7 @@ const Character = () => {
   const [alignment, setAlignment] = useState('Nome');
   const [experiencePoints, setExperiencePoints] = useState(0);
   const [bonusProficiency, setBonusProficiency] = useState(bonusProficiencyByLevel(level));
+  const [initiative, setInitiative] = useState(0);
 
   const [stats, setStats] = useState<TStat[]>([
     { name: 'Força', attribute: Attribute.STRENGTH, value: 13, color: 'orange' },
@@ -88,6 +89,11 @@ const Character = () => {
   useEffect(() => {
     setBonusProficiency(bonusProficiencyByLevel(level));
   }, [level]);
+
+  useEffect(() => {
+    //1 -> Dex
+    setInitiative(modifier(stats[1].value));
+  }, [stats]);
 
   return (
     <>
