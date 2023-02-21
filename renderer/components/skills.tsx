@@ -32,7 +32,7 @@ const Skills = ({ skills, stats, bonusProficiency, updateSkill }: MultiSkills) =
                 </Typography>
               </Grid>
               <Grid item minWidth={32}>
-                <Tooltip title='Bonus de Proficiência' arrow>
+                <Tooltip title='Bonus de Proficiência' arrow disableInteractive>
                   <Paper variant='outlined' sx={{ backgroundColor: '#ce93d8' }}>
                     <Typography
                       variant='inherit'
@@ -49,7 +49,7 @@ const Skills = ({ skills, stats, bonusProficiency, updateSkill }: MultiSkills) =
             <Grid container padding={0} rowSpacing={0} alignItems='center'>
               {skills.map((skill, index) => (
                 <Fragment key={index}>
-                  <Grid item xs={2}>
+                  <Grid item xs={1}>
                     <Tooltip title='Proficiente?' disableInteractive>
                       <Checkbox
                         size='small'
@@ -61,8 +61,8 @@ const Skills = ({ skills, stats, bonusProficiency, updateSkill }: MultiSkills) =
                       />
                     </Tooltip>
                   </Grid>
-                  <Grid item xs={2}>
-                    <Typography variant='inherit' marginRight={1} textAlign='center'>
+                  <Grid item xs={3}>
+                    <Typography variant='inherit' textAlign='center'>
                       {proficientModifierString(
                         stats.find((x) => x.attribute == skill.attribute)?.value,
                         bonusProficiency,

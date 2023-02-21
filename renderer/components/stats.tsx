@@ -54,7 +54,16 @@ const Stats = ({ stats, updateStat }: MultiStats) => {
                     ></TextField>
                   </Grid>
                   <Grid item xs={2}>
-                    <Typography variant='inherit'>{modifierString(stat.value)}</Typography>
+                    <Tooltip title='Modificador' arrow disableInteractive placement='top-start'>
+                      <Typography
+                        variant='inherit'
+                        paddingLeft={1}
+                        paddingRight={1}
+                        fontWeight='bolder'
+                      >
+                        {modifierString(stat.value)}
+                      </Typography>
+                    </Tooltip>
                   </Grid>
                 </Fragment>
               ))}
