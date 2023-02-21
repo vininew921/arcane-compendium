@@ -2,11 +2,12 @@ import { Grid, Paper, TextField } from '@mui/material';
 import Stats from './stats';
 import Skills from './skills';
 import { useEffect, useState } from 'react';
-import { TSkill, TStats } from '../models/types';
+import { TSavingThrow, TSkill, TStat } from '../models/types';
 import Attribute from '../models/enums/attribute';
 import { bonusProficiencyByLevel } from '../helpers/ACHelper';
+import SavingThrows from './savingThrows';
 
-const gridItemSize = 5;
+const gridItemSize = 4;
 
 const Character = () => {
   const [name, setName] = useState('Nome');
@@ -18,13 +19,13 @@ const Character = () => {
   const [experiencePoints, setExperiencePoints] = useState(0);
   const [bonusProficiency, setBonusProficiency] = useState(bonusProficiencyByLevel(level));
 
-  const [stats, setStats] = useState<TStats[]>([
-    { name: 'Força', attribute: Attribute.STRENGTH, value: 13 },
-    { name: 'Destreza', attribute: Attribute.DEXTERITY, value: 8 },
-    { name: 'Constituição', attribute: Attribute.CONSTITUTION, value: 16 },
-    { name: 'Inteligência', attribute: Attribute.INTELLIGENCE, value: 12 },
-    { name: 'Sabedoria', attribute: Attribute.WISDOM, value: 16 },
-    { name: 'Carisma', attribute: Attribute.CHARISMA, value: 10 },
+  const [stats, setStats] = useState<TStat[]>([
+    { name: 'Força', attribute: Attribute.STRENGTH, value: 13, color: 'orange' },
+    { name: 'Destreza', attribute: Attribute.DEXTERITY, value: 8, color: 'yellow' },
+    { name: 'Constituição', attribute: Attribute.CONSTITUTION, value: 16, color: 'red' },
+    { name: 'Inteligência', attribute: Attribute.INTELLIGENCE, value: 12, color: 'blue' },
+    { name: 'Sabedoria', attribute: Attribute.WISDOM, value: 16, color: 'green' },
+    { name: 'Carisma', attribute: Attribute.CHARISMA, value: 10, color: 'purple' },
   ]);
 
   const [skills, setSkills] = useState<TSkill[]>([
@@ -48,6 +49,15 @@ const Character = () => {
     { name: 'Sobrevivência', attribute: Attribute.WISDOM, proficient: false },
   ]);
 
+  const [savingThrows, setSavingThrows] = useState<TSavingThrow[]>([
+    { name: 'Força', attribute: Attribute.STRENGTH, proficient: false },
+    { name: 'Destreza', attribute: Attribute.DEXTERITY, proficient: false },
+    { name: 'Constituição', attribute: Attribute.CONSTITUTION, proficient: false },
+    { name: 'Inteligência', attribute: Attribute.INTELLIGENCE, proficient: false },
+    { name: 'Sabedoria', attribute: Attribute.WISDOM, proficient: false },
+    { name: 'Carisma', attribute: Attribute.CHARISMA, proficient: false },
+  ]);
+
   const updateStat = (index: number, value: number) => {
     let temp = [...stats];
     let stat = { ...stats[index] };
@@ -64,6 +74,15 @@ const Character = () => {
     temp[index] = skill;
 
     setSkills(temp);
+  };
+
+  const updateSavingThrow = (index: number, proficient: boolean) => {
+    let temp = [...savingThrows];
+    let savingThrow = { ...savingThrows[index] };
+    savingThrow.proficient = proficient;
+    temp[index] = savingThrow;
+
+    setSavingThrows(temp);
   };
 
   useEffect(() => {
@@ -85,7 +104,7 @@ const Character = () => {
             />
             <Stats stats={stats} updateStat={updateStat} />
           </Grid>
-          <Grid item xs={9} container padding={2} spacing={2} direction='column' maxHeight={200}>
+          <Grid item xs={9} container padding={2} spacing={2} maxHeight={200}>
             <Grid item xs={gridItemSize}>
               <TextField
                 size='small'
@@ -140,6 +159,14 @@ const Character = () => {
                 label='Pontos de Experiência'
                 type='number'
                 fullWidth
+              />
+            </Grid>
+            <Grid item xs={gridItemSize}>
+              <SavingThrows
+                savingThrows={savingThrows}
+                stats={stats}
+                bonusProficiency={bonusProficiency}
+                updateSavingThrow={updateSavingThrow}
               />
             </Grid>
           </Grid>

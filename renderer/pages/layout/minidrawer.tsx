@@ -164,7 +164,7 @@ const MiniDrawer = ({ children }: Props) => {
           />
         </List>
       </Drawer>
-      <Box component='main' sx={{ flexGrow: 1, minWidth: 1024 }}>
+      <Box component='main' sx={{ flexGrow: 1, minWidth: 1036 }}>
         {children}
       </Box>
     </Box>

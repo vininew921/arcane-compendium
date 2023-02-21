@@ -11,13 +11,20 @@ export type TCharacter = {
   experiencePoints: number;
 };
 
-export type TStats = {
+export type TStat = {
   name: string;
   attribute: Attribute;
   value: number;
+  color: string;
 };
 
 export type TSkill = {
+  name: string;
+  attribute: Attribute;
+  proficient: boolean;
+};
+
+export type TSavingThrow = {
   name: string;
   attribute: Attribute;
   proficient: boolean;

@@ -9,11 +9,11 @@ import {
   Typography,
 } from '@mui/material';
 import { Fragment } from 'react';
-import { modifierString } from '../helpers/ACHelper';
-import { TStats } from '../models/types';
+import { modifierString, attributeTooltip } from '../helpers/ACHelper';
+import { TStat } from '../models/types';
 
 type MultiStats = {
-  stats: TStats[];
+  stats: TStat[];
   updateStat: (index: number, value: number) => void;
 };
 
@@ -31,8 +31,13 @@ const Stats = ({ stats, updateStat }: MultiStats) => {
               {stats.map((stat, index) => (
                 <Fragment key={index}>
                   <Grid item xs={8} key={index}>
-                    <Tooltip title='Atletismo natural, poder corporal' followCursor>
-                      <Typography variant='inherit' textAlign='start'>
+                    <Tooltip title={attributeTooltip(stat.attribute)} followCursor>
+                      <Typography
+                        variant='inherit'
+                        textAlign='start'
+                        color={stat.color}
+                        fontWeight='bold'
+                      >
                         {stat.name}
                       </Typography>
                     </Tooltip>
@@ -60,6 +65,7 @@ const Stats = ({ stats, updateStat }: MultiStats) => {
                         paddingLeft={1}
                         paddingRight={1}
                         fontWeight='bolder'
+                        color={stat.color}
                       >
                         {modifierString(stat.value)}
                       </Typography>

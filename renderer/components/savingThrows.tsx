@@ -9,17 +9,22 @@ import {
   Typography,
 } from '@mui/material';
 import { Fragment } from 'react';
-import { attributeToString, proficientModifierString } from '../helpers/ACHelper';
-import { TSkill, TStat } from '../models/types';
+import { proficientModifierString } from '../helpers/ACHelper';
+import { TSavingThrow, TStat } from '../models/types';
 
-type MultiSkills = {
-  skills: TSkill[];
+type MultiSavingThrows = {
+  savingThrows: TSavingThrow[];
   stats: TStat[];
   bonusProficiency: number;
-  updateSkill: (index: number, proficient: boolean) => void;
+  updateSavingThrow: (index: number, proficient: boolean) => void;
 };
 
-const Skills = ({ skills, stats, bonusProficiency, updateSkill }: MultiSkills) => {
+const SavingThrows = ({
+  savingThrows,
+  stats,
+  bonusProficiency,
+  updateSavingThrow,
+}: MultiSavingThrows) => {
   return (
     <>
       <Paper elevation={3}>
@@ -28,7 +33,7 @@ const Skills = ({ skills, stats, bonusProficiency, updateSkill }: MultiSkills) =
             <Grid container justifyContent='space-between'>
               <Grid item>
                 <Typography variant='inherit' marginBottom={1} fontWeight='bolder'>
-                  PERÍCIAS
+                  SALVA GUARDAS
                 </Typography>
               </Grid>
               <Grid item minWidth={32}>
@@ -47,49 +52,42 @@ const Skills = ({ skills, stats, bonusProficiency, updateSkill }: MultiSkills) =
             </Grid>
             <Divider />
             <Grid container padding={0} rowSpacing={0} alignItems='center'>
-              {skills.map((skill, index) => (
+              {savingThrows.map((savingThrow, index) => (
                 <Fragment key={index}>
                   <Grid item xs={1}>
                     <Tooltip title='Proficiente?' disableInteractive>
                       <Checkbox
                         size='small'
-                        checked={skill.proficient}
+                        checked={savingThrow.proficient}
                         disableRipple
                         color='secondary'
-                        onChange={(e) => updateSkill(index, e.target.checked)}
+                        onChange={(e) => updateSavingThrow(index, e.target.checked)}
                         sx={{ paddingLeft: 0 }}
                       />
                     </Tooltip>
                   </Grid>
                   <Grid item xs={3}>
                     <Typography
-                      variant='inherit'
                       fontWeight='bold'
-                      color={stats.find((x) => x.attribute == skill.attribute)?.color}
+                      color={stats.find((x) => x.attribute == savingThrow.attribute)?.color}
+                      variant='inherit'
                       textAlign='center'
                     >
                       {proficientModifierString(
-                        stats.find((x) => x.attribute == skill.attribute)?.value,
+                        stats.find((x) => x.attribute == savingThrow.attribute)?.value,
                         bonusProficiency,
-                        skill.proficient
+                        savingThrow.proficient
                       )}
                     </Typography>
                   </Grid>
                   <Grid item xs={8}>
-                    <Tooltip
-                      title={attributeToString(skill.attribute)}
-                      disableInteractive
-                      arrow
-                      placement='top-start'
+                    <Typography
+                      variant='inherit'
+                      fontWeight='bold'
+                      color={stats.find((x) => x.attribute == savingThrow.attribute)?.color}
                     >
-                      <Typography
-                        variant='inherit'
-                        fontWeight='bold'
-                        color={stats.find((x) => x.attribute == skill.attribute)?.color}
-                      >
-                        {skill.name}
-                      </Typography>
-                    </Tooltip>
+                      {savingThrow.name}
+                    </Typography>
                   </Grid>
                 </Fragment>
               ))}
@@ -101,4 +99,4 @@ const Skills = ({ skills, stats, bonusProficiency, updateSkill }: MultiSkills) =
   );
 };
 
-export default Skills;
+export default SavingThrows;
