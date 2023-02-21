@@ -1,19 +1,69 @@
-import { useState } from 'react';
 import { Grid, Paper, TextField } from '@mui/material';
-import ICharacter from '../models/ICharacter';
 import Stats from './stats';
+import Skills from './skills';
+import { useState } from 'react';
+import { TSkill, TStats } from '../models/types';
+import Attribute from '../models/enums/attribute';
 
-const Character = (props: ICharacter) => {
-  const [name, setName] = useState(props.name);
-  const [characterClass, setCharacterClass] = useState(props.characterClass);
-  const [level, setLevel] = useState(props.level);
-  const [race, setRace] = useState(props.race);
-  const [background, setBackground] = useState(props.background);
-  const [alignment, setAlignment] = useState(props.alignment);
-  const [playerName, setPlayerName] = useState(props.playerName);
-  const [experiencePoints, setExperiencePoints] = useState(props.experiencePoints);
+const gridItemSize = 5;
 
-  let gridItemSize = 5;
+const Character = () => {
+  const [name, setName] = useState('Nome');
+  const [characterClass, setCharacterClass] = useState('Nome');
+  const [level, setLevel] = useState(1);
+  const [race, setRace] = useState('Nome');
+  const [background, setBackground] = useState('Nome');
+  const [alignment, setAlignment] = useState('Nome');
+  const [experiencePoints, setExperiencePoints] = useState(0);
+  const [bonusProficiency, setBonusProficiency] = useState(2);
+
+  const [stats, setStats] = useState<TStats[]>([
+    { name: 'Força', attribute: Attribute.STRENGTH, value: 13 },
+    { name: 'Destreza', attribute: Attribute.DEXTERITY, value: 8 },
+    { name: 'Constituição', attribute: Attribute.CONSTITUTION, value: 16 },
+    { name: 'Inteligência', attribute: Attribute.INTELLIGENCE, value: 12 },
+    { name: 'Sabedoria', attribute: Attribute.WISDOM, value: 16 },
+    { name: 'Carisma', attribute: Attribute.CHARISMA, value: 10 },
+  ]);
+
+  const [skills, setSkills] = useState<TSkill[]>([
+    { name: 'Acrobacia', attribute: Attribute.DEXTERITY, proficient: false },
+    { name: 'Arcanismo', attribute: Attribute.INTELLIGENCE, proficient: false },
+    { name: 'Atletismo', attribute: Attribute.STRENGTH, proficient: false },
+    { name: 'Atuação', attribute: Attribute.CHARISMA, proficient: false },
+    { name: 'Enganação', attribute: Attribute.CHARISMA, proficient: false },
+    { name: 'Furtividade', attribute: Attribute.DEXTERITY, proficient: false },
+    { name: 'Historia', attribute: Attribute.INTELLIGENCE, proficient: false },
+    { name: 'Intimidação', attribute: Attribute.CHARISMA, proficient: false },
+    { name: 'Intuição', attribute: Attribute.WISDOM, proficient: false },
+    { name: 'Investigação', attribute: Attribute.INTELLIGENCE, proficient: false },
+    { name: 'Lidar com Animais', attribute: Attribute.WISDOM, proficient: false },
+    { name: 'Medicina', attribute: Attribute.WISDOM, proficient: false },
+    { name: 'Natureza', attribute: Attribute.INTELLIGENCE, proficient: false },
+    { name: 'Percepção', attribute: Attribute.WISDOM, proficient: false },
+    { name: 'Persuasão', attribute: Attribute.CHARISMA, proficient: false },
+    { name: 'Prestidigitação', attribute: Attribute.DEXTERITY, proficient: false },
+    { name: 'Religião', attribute: Attribute.INTELLIGENCE, proficient: false },
+    { name: 'Sobrevivência', attribute: Attribute.WISDOM, proficient: false },
+  ]);
+
+  const updateStat = (index: number, value: number) => {
+    let temp = [...stats];
+    let stat = { ...stats[index] };
+    stat.value = value;
+    temp[index] = stat;
+
+    setStats(temp);
+  };
+
+  const updateSkill = (index: number, proficient: boolean) => {
+    let temp = [...skills];
+    let skill = { ...skills[index] };
+    skill.proficient = proficient;
+    temp[index] = skill;
+
+    setSkills(temp);
+  };
 
   return (
     <>
@@ -28,14 +78,7 @@ const Character = (props: ICharacter) => {
               fullWidth
               className='mb-3'
             />
-            <Stats
-              strength={13}
-              dexterity={8}
-              constitution={16}
-              intelligence={12}
-              wisdom={16}
-              charisma={10}
-            />
+            <Stats stats={stats} updateStat={updateStat} />
           </Grid>
           <Grid item xs={9} container padding={2} spacing={2} direction='column' maxHeight={200}>
             <Grid item xs={gridItemSize}>
@@ -94,6 +137,14 @@ const Character = (props: ICharacter) => {
                 fullWidth
               />
             </Grid>
+          </Grid>
+          <Grid item xs={3}>
+            <Skills
+              skills={skills}
+              stats={stats}
+              bonusProficiency={bonusProficiency}
+              updateSkill={updateSkill}
+            />
           </Grid>
         </Grid>
       </Paper>

@@ -8,16 +8,7 @@ function Home() {
       <Head>
         <title>Arcane Compendium</title>
       </Head>
-      <Character
-        name='Teste'
-        characterClass='Ranger'
-        level={1}
-        race='Wood Elf'
-        background='Acolyte'
-        alignment='Lawful Good'
-        playerName='Vine'
-        experiencePoints={0}
-      />
+      <Character />
     </div>
   );
 }
