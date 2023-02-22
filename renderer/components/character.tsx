@@ -2,10 +2,12 @@ import { Grid, Paper, TextField } from '@mui/material';
 import Stats from './stats';
 import Skills from './skills';
 import { useEffect, useState } from 'react';
-import { TSavingThrow, TSkill, TStat } from '../models/types';
+import { THitDice, TSavingThrow, TSkill, TStat } from '../models/types';
 import Attribute from '../models/enums/attribute';
 import { bonusProficiencyByLevel, modifier } from '../helpers/ACHelper';
 import SavingThrows from './savingThrows';
+import Dice from '../models/enums/dice';
+import HitDice from './hitDice';
 
 const gridItemSize = 4;
 
@@ -17,8 +19,6 @@ const Character = () => {
   const [background, setBackground] = useState('Nome');
   const [alignment, setAlignment] = useState('Nome');
   const [experiencePoints, setExperiencePoints] = useState(0);
-  const [bonusProficiency, setBonusProficiency] = useState(bonusProficiencyByLevel(level));
-  const [initiative, setInitiative] = useState(0);
 
   const [stats, setStats] = useState<TStat[]>([
     { name: 'Força', attribute: Attribute.STRENGTH, value: 13, color: 'orange' },
@@ -59,6 +59,16 @@ const Character = () => {
     { name: 'Carisma', attribute: Attribute.CHARISMA, proficient: false },
   ]);
 
+  const [hitDice, setHitDice] = useState<THitDice>({
+    maxHealth: 8,
+    currentHealth: 11,
+    temporaryHealth: 5,
+    diceCount: 1,
+    diceType: Dice.D8,
+    failThrows: 0,
+    sucessThrows: 0,
+  });
+
   const updateStat = (index: number, value: number) => {
     let temp = [...stats];
     let stat = { ...stats[index] };
@@ -86,14 +96,9 @@ const Character = () => {
     setSavingThrows(temp);
   };
 
-  useEffect(() => {
-    setBonusProficiency(bonusProficiencyByLevel(level));
-  }, [level]);
-
-  useEffect(() => {
-    //1 -> Dex
-    setInitiative(modifier(stats[1].value));
-  }, [stats]);
+  const getModifierByAttribute = (attribute: Attribute) => {
+    return modifier(stats.find((x) => x.attribute == attribute)!.value);
+  };
 
   return (
     <>
@@ -171,8 +176,15 @@ const Character = () => {
               <SavingThrows
                 savingThrows={savingThrows}
                 stats={stats}
-                bonusProficiency={bonusProficiency}
+                bonusProficiency={bonusProficiencyByLevel(level)}
                 updateSavingThrow={updateSavingThrow}
+              />
+            </Grid>
+            <Grid item xs={gridItemSize}>
+              <HitDice
+                hitDice={hitDice}
+                constitutionModifier={getModifierByAttribute(Attribute.CONSTITUTION)}
+                setHitDice={setHitDice}
               />
             </Grid>
           </Grid>
@@ -180,7 +192,7 @@ const Character = () => {
             <Skills
               skills={skills}
               stats={stats}
-              bonusProficiency={bonusProficiency}
+              bonusProficiency={bonusProficiencyByLevel(level)}
               updateSkill={updateSkill}
             />
           </Grid>
